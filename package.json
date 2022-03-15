@@ -1,0 +1,12 @@
+{
+  "name": "collage-de-imagenes-fileupload",
+  "version": "1.0.0",
+  "description": "Trabajo con expressJS y los paquetes body-parser y express-fileupload. El desafio consiste en cargar imagenes y luego desplegarlas en un collage hecho con CSS Grid para que posteriomente el usuario pueda hacer click en la imagen que desee eliminar.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Juan Pedro Tovar",
+  "license": "ISC"
+}
