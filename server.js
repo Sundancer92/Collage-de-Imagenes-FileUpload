@@ -34,27 +34,34 @@ app.get("/Imagen", (req, res) => {
 // ! El desafio dice que sea GET y no DELETE ¿?
 app.get("/deleteImg/:nombre", (req, res) => {
 	const nombre = req.params.nombre;
-	fs.unlink(__dirname + "/public/imgs/" + nombre, (err) => {
-		if (err) {
-			console.alert(err);
-			res.redirect("/Imagen");
-		} else {
-			res.redirect("/Imagen");
-		}
-	});
+	// * Existe el archivo?
+	fs.existsSync(__dirname + "/public/imgs/" + nombre)
+	    //* Si existe lo borro
+		? fs.unlinkSync(__dirname + "/public/imgs/" + nombre)
+		// * Sino aviso y vuelvo a cargar la pagina
+		: console.log("No existe la imagen");
+	res.redirect("/Imagen");
 });
 
 // * -------------------
 app.post("/Imagen", (req, res) => {
 	// ? Captura del archivo
-	const { target_file } = req.files;
-	const { name } = target_file;
-	// ? Captura de la posicion para el archivo en el collage
-	const { posicion } = req.body;
+	try {
+		const { target_file } = req.files;
+		// ? Captura de la posicion para el archivo en el collage
+		const { posicion } = req.body;
 
-	target_file.mv(`${__dirname}/public/imgs/imagen-${posicion}.jpg`, (err) => {
-		res.redirect("/Imagen");
-	});
+		target_file.mv(
+			`${__dirname}/public/imgs/imagen-${posicion}.jpg`,
+			(err) => {
+				res.redirect("/Imagen");
+			},
+		);
+	} catch (err) {
+		res.send(
+			"<div><h1>Recuerda cargar la imagen</h1><button><a href='/'>Volver</a></button></div><style> body{background-color: black;color: white;text-align: center;},</style>",
+		);
+	}
 });
 
 // * -------------------
