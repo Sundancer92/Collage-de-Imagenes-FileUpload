@@ -30,6 +30,20 @@ app.get("/Imagen", (req, res) => {
 	res.sendFile(__dirname + "/collage.html");
 });
 
+// ? DELETE imgs
+// ! El desafio dice que sea GET y no DELETE ¿?
+app.get("/deleteImg/:nombre", (req, res) => {
+	const nombre = req.params.nombre;
+	fs.unlink(__dirname + "/public/imgs/" + nombre, (err) => {
+		if (err) {
+			console.alert(err);
+			res.redirect("/Imagen");
+		} else {
+			res.redirect("/Imagen");
+		}
+	});
+});
+
 // * -------------------
 app.post("/Imagen", (req, res) => {
 	// ? Captura del archivo
