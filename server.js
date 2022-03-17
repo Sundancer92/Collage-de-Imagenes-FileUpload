@@ -26,21 +26,19 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/formulario.html");
 });
 
-app.use("/imagen",)
-
 app.get("/Imagen", (req, res) => {
 	res.sendFile(__dirname + "/collage.html");
 });
 
 // * -------------------
 app.post("/Imagen", (req, res) => {
-    // ? Captura del archivo
+	// ? Captura del archivo
 	const { target_file } = req.files;
 	const { name } = target_file;
-    // ? Captura de la posicion para el archivo en el collage
+	// ? Captura de la posicion para el archivo en el collage
 	const { posicion } = req.body;
 
-	target_file.mv(`${__dirname}/public/imagen-${posicion}.jpg`, (err) => {
+	target_file.mv(`${__dirname}/public/imgs/imagen-${posicion}.jpg`, (err) => {
 		res.redirect("/Imagen");
 	});
 });
